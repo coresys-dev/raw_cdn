@@ -1,0 +1,198 @@
+/* =========================================================================
+   Uptime Kuma – page de statut : D.A. du site marketing SLDR
+   Fond noir, accent émeraude, Nohemi. Dark forcé.
+   Coller tel quel dans « Custom CSS » (mode édition de la page de statut).
+
+   Polices hébergées sur github raw (repo coresys-dev/raw_cdn). Seuls
+   Regular / Medium / Bold sont disponibles : les graisses 300 et 800
+   demandées par le thème retombent sur Regular / Bold.
+   ========================================================================= */
+
+@font-face { font-family:"Nohemi"; src:url("https://github.com/coresys-dev/raw_cdn/raw/refs/heads/main/nohemi_fonts/Nohemi-Regular.woff2") format("woff2"); font-weight:300 400; font-display:swap; ascent-override:75%; descent-override:21%; line-gap-override:0%; }
+@font-face { font-family:"Nohemi"; src:url("https://github.com/coresys-dev/raw_cdn/raw/refs/heads/main/nohemi_fonts/Nohemi-Medium.woff2")  format("woff2"); font-weight:500; font-display:swap; ascent-override:75%; descent-override:21%; line-gap-override:0%; }
+@font-face { font-family:"Nohemi"; src:url("https://github.com/coresys-dev/raw_cdn/raw/refs/heads/main/nohemi_fonts/Nohemi-Bold.woff2")    format("woff2"); font-weight:600 800; font-display:swap; ascent-override:75%; descent-override:21%; line-gap-override:0%; }
+
+:root,
+:root.dark,
+html[data-theme="dark"] {
+  /* palette marketing (globals.css @theme) */
+  --sldr-bg:            #000000;
+  --sldr-surface:       #0a0a0a;
+  --sldr-surface-raised:#141414;
+  --sldr-surface-hover: #121212;
+  --sldr-border:        #1f1f1f;
+  --sldr-text:          #f5f5f5;
+  --sldr-text-muted:    #8e8e93;
+  --sldr-accent:        #34d399;
+  --sldr-accent-muted:  #1c4a3a;
+  --sldr-warning:       #fbbf24;
+  --sldr-danger:        #f87171;
+
+  --sldr-radius-md: 8px;
+  --sldr-radius-lg: 14px;
+  --sldr-shadow-card: 0 1px 2px 0 rgba(0,0,0,.4), 0 4px 12px -4px rgba(0,0,0,.5);
+  --sldr-font: "Nohemi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* remap des tokens internes Kuma / Bootstrap */
+  --primary:        var(--sldr-accent) !important;
+  --highlight:      var(--sldr-accent) !important;
+  --highlight-dark: var(--sldr-accent-muted) !important;
+  --bs-primary:     var(--sldr-accent) !important;
+  --danger:         var(--sldr-danger) !important;
+  --warning:        var(--sldr-warning) !important;
+  --bg-primary:     var(--sldr-surface) !important;
+  --header-bg:      var(--sldr-surface) !important;
+  --border-color:   var(--sldr-border) !important;
+  --border-color-light: var(--sldr-border) !important;
+}
+
+/* --------------------------------------------------------- base ---------- */
+html, body, #app {
+  background-color: var(--sldr-bg) !important;
+  color: var(--sldr-text) !important;
+  font-family: var(--sldr-font) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background-color: var(--sldr-accent-muted); color: var(--sldr-text); }
+
+* { scrollbar-width: thin; scrollbar-color: var(--sldr-border) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background-color: var(--sldr-border); border-radius: 999px;
+  border: 2px solid transparent; background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--sldr-text-muted); }
+
+a { color: var(--sldr-accent); }
+a:hover { color: color-mix(in srgb, var(--sldr-accent) 80%, #fff); }
+
+:focus-visible { outline: 2px solid var(--sldr-accent) !important; outline-offset: 2px; }
+
+/* grain overlay (comme le site) ----------------------------------------- */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 2147483000;
+  pointer-events: none; opacity: .09; mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* --------------------------------------------------------- header ------- */
+.status-page-header .title,
+h1.title,
+.title-flex .title {
+  font-family: var(--sldr-font) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+  color: var(--sldr-text) !important;
+}
+.description-span,
+.status-page-refresh-info,
+.timeslot,
+.text-start.mb-1 span,
+p.text-muted,
+.text-muted { color: var(--sldr-text-muted) !important; }
+
+/* --------------------------------------------------------- cards -------- */
+.shadow-box,
+.status-page-body .shadow-box,
+.monitor-list .item,
+.incident {
+  background-color: var(--sldr-surface) !important;
+  background-image: none !important;
+  border: 1px solid var(--sldr-border) !important;
+  border-radius: var(--sldr-radius-lg) !important;
+  box-shadow: var(--sldr-shadow-card) !important;
+}
+.shadow-box .item:hover,
+.monitor-list .item:hover { background-color: var(--sldr-surface-hover) !important; }
+
+.group-title span,
+.monitor-list .group-title { color: var(--sldr-text) !important; font-weight: 600 !important; }
+
+.monitor-list .item .info a { color: var(--sldr-text) !important; }
+
+/* --------------------------------------------------- overall status ---- */
+.overall-status .status-ok,
+.overall-status.ok,
+.overall-status .ok { color: var(--sldr-accent) !important; }
+.overall-status .status-degraded,
+.overall-status .warn { color: var(--sldr-warning) !important; }
+.overall-status .status-down,
+.overall-status .down { color: var(--sldr-danger) !important; }
+
+/* --------------------------------------------------- heartbeat bar ----- */
+.hp-bar-big .beat,
+.beat-hover-area .beat,
+.hp-bar-big .beat.up { background-color: var(--sldr-accent) !important; }
+.hp-bar-big .beat.down,
+.beat-hover-area .beat.down { background-color: var(--sldr-danger) !important; }
+.hp-bar-big .beat.pending,
+.beat-hover-area .beat.pending { background-color: var(--sldr-warning) !important; }
+.hp-bar-big .beat.empty,
+.beat-hover-area .beat.empty { background-color: var(--sldr-border) !important; }
+
+/* pourcentage d'uptime */
+.uptime, .badge { border-radius: 999px !important; }
+.badge.bg-primary, .badge.bg-success {
+  background-color: var(--sldr-accent-muted) !important;
+  color: var(--sldr-accent) !important;
+}
+.badge.bg-danger {
+  background-color: color-mix(in srgb, var(--sldr-danger) 22%, transparent) !important;
+  color: var(--sldr-danger) !important;
+}
+.badge.bg-warning {
+  background-color: color-mix(in srgb, var(--sldr-warning) 20%, transparent) !important;
+  color: var(--sldr-warning) !important;
+}
+
+/* --------------------------------------------------------- buttons ----- */
+.btn-primary {
+  background-color: var(--sldr-accent) !important;
+  border-color: var(--sldr-accent) !important;
+  color: #04160f !important;
+  font-weight: 600 !important;
+  border-radius: var(--sldr-radius-md) !important;
+}
+.btn-primary:hover { background-color: color-mix(in srgb, var(--sldr-accent) 88%, #fff) !important; }
+.btn-outline-normal,
+.btn.btn-normal {
+  background-color: var(--sldr-surface-raised) !important;
+  border: 1px solid var(--sldr-border) !important;
+  color: var(--sldr-text) !important;
+  border-radius: var(--sldr-radius-md) !important;
+}
+.btn-outline-normal:hover { background-color: var(--sldr-surface-hover) !important; }
+
+/* --------------------------------------------------------- inputs ------ */
+.form-control, .form-select, textarea {
+  background-color: var(--sldr-surface-raised) !important;
+  border: 1px solid var(--sldr-border) !important;
+  color: var(--sldr-text) !important;
+  border-radius: var(--sldr-radius-md) !important;
+}
+.form-control:focus {
+  border-color: var(--sldr-accent) !important;
+  box-shadow: 0 0 0 2px var(--sldr-accent-muted) !important;
+}
+
+/* --------------------------------------------------- incidents --------- */
+.incident.bg-info, .incident.bg-primary { border-left: 3px solid var(--sldr-accent) !important; }
+.incident.bg-warning { border-left: 3px solid var(--sldr-warning) !important; }
+.incident.bg-danger  { border-left: 3px solid var(--sldr-danger) !important; }
+.incident .incident-title { color: var(--sldr-text) !important; font-weight: 700 !important; }
+
+/* --------------------------------------------------- maintenance ------- */
+.maintenance-bg-color, .bg-maintenance {
+  background-color: color-mix(in srgb, var(--sldr-warning) 15%, var(--sldr-surface)) !important;
+}
+
+/* --------------------------------------------------------- footer ------ */
+.footer, .footer .alexbird { color: var(--sldr-text-muted) !important; border-color: var(--sldr-border) !important; }
+
+/* --------------------------------------------------- reduce motion ----- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
