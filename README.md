@@ -1,0 +1,1 @@
+Easy CDN for basic medias
